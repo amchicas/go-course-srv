@@ -1,1 +1,1 @@
-# go-course-srv
+# go-courses-srv

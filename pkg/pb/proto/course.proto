@@ -1,0 +1,104 @@
+syntax = "proto3";
+package course;
+option go_package = "./pkg/pb";
+
+service  CourseService {
+    rpc CreateCourse (CourseReq) returns (CreateCourseResp){}
+    rpc UpdateCourse (CourseReq) returns (UpdateCourseResp){}
+    rpc DeleteCourse (DeleteCourseReq) returns (DeleteCourseResp){}
+    rpc FindCourse (FindCourseReq) returns (CourseResp){}
+
+    // h   rpc AddSection(AddSectionReq) returns (AddSectionResp){}
+    //    rpc AddContent(AddContentReq) returns (AddContentResp){}
+
+
+}
+message EmptyReq {}
+
+message Course{
+    enum CourseStatus {
+        INACTIVE = 0 ;
+        ACTIVE = 1;
+    }
+    enum Level {
+        BEGINNER = 0 ;
+        MEDIUM = 1;
+        EXPERT = 2;
+
+    }
+    string id = 1;
+    string title = 2;
+    string subtitle = 3;
+    string description = 4;
+    repeated string learn = 5;
+    repeated string requirement = 6;
+    uint64 votes = 7;
+    uint64 students = 8;
+    repeated Section section = 9;
+    string lang = 10; 
+    CourseStatus status =11; 
+    Level level =12; 
+    int64 created = 13;
+    int64 modified = 14;
+
+}
+message Section{
+    enum SectionStatus {
+        INACTIVE = 0 ;
+        ACTIVE = 1;
+    }
+    string section_id = 1;
+    string title = 2; 
+    repeated Content content = 3;
+    SectionStatus status = 4;
+
+}
+message  Content{
+    enum ContentStatus {
+        INACTIVE = 0 ;
+        ACTIVE = 1;
+    }
+    string contentId = 1;
+    string title = 2;
+    string subtitle = 3;
+    string url = 4;
+    string article = 5;
+    ContentStatus status =6;
+    int64 created = 13;
+    int64 modified = 14;
+}
+message CourseReq{
+    Course course = 1;
+
+}
+message CourseResp{
+    Course course = 1;
+
+}
+message FindCourseReq{
+
+    string courseId = 1;
+
+}
+message CreateCourseResp{
+
+    string courseId = 1;
+
+}
+message UpdateCourseResp{
+    Course course = 1;
+}
+message AddSectionReq{
+    Section section = 1;
+}
+message AddSectionResp {
+    string sectionId = 1; 
+}
+
+message DeleteCourseReq {
+    string courseId = 1; 
+}
+message DeleteCourseResp {
+    string error = 1; 
+}
+
